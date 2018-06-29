@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+  *::after, *::before {
+    box-sizing: border-box; }
+
+body {
+  background-color: #05668d;
+  font-family: sans-serif; }
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem; }
+  .app__human-section, .app__computer-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    .app__human-section__selection, .app__computer-section__selection {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 2.5rem;
+      max-width: 300px;
+      margin: 0 auto;
+      width: 100%; }
+      .app__human-section__selection__rock, .app__human-section__selection__paper, .app__human-section__selection__scissors, .app__computer-section__selection__rock, .app__computer-section__selection__paper, .app__computer-section__selection__scissors {
+        background-color: #eac435;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .app__human-section__selection__rock:hover, .app__human-section__selection__paper:hover, .app__human-section__selection__scissors:hover, .app__computer-section__selection__rock:hover, .app__computer-section__selection__paper:hover, .app__computer-section__selection__scissors:hover {
+          background-color: #d6ae16; }
+        .app__human-section__selection__rock--chosen, .app__human-section__selection__paper--chosen, .app__human-section__selection__scissors--chosen, .app__computer-section__selection__rock--chosen, .app__computer-section__selection__paper--chosen, .app__computer-section__selection__scissors--chosen {
+          background-color: #fb4d3d; }
+          .app__human-section__selection__rock--chosen:hover, .app__human-section__selection__paper--chosen:hover, .app__human-section__selection__scissors--chosen:hover, .app__computer-section__selection__rock--chosen:hover, .app__computer-section__selection__paper--chosen:hover, .app__computer-section__selection__scissors--chosen:hover {
+            background-color: none; }
+    .app__human-section__result, .app__computer-section__result {
+      max-width: 300px;
+      margin: 0 auto 1.5rem;
+      text-align: center; }
+      .app__human-section__result h2, .app__computer-section__result h2 {
+        color: #fff;
+        font-weight: 400; }
+      .app__human-section__result__number, .app__computer-section__result__number {
+        color: #03cea4; }
+
+/*# sourceMappingURL=main.css.map */
