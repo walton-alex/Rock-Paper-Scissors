@@ -52,7 +52,7 @@ body {
           background-color: #fb4d3d;
 
           &:hover {
-            background-color: none;
+            background-color: #fb4d3d;
           }
 
         }
@@ -73,6 +73,23 @@ body {
 
       &__number {
         color: #03cea4;
+      }
+
+    }
+
+  }
+
+  &__computer-section {
+
+    &__selection {
+
+      &__rock, &__paper, &__scissors {
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: #eac435;
+        }
+
       }
 
     }

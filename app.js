@@ -11,6 +11,16 @@ const rock = document.querySelector('.app__human-section__selection__rock');
 const paper = document.querySelector('.app__human-section__selection__paper');
 const scissors = document.querySelector('.app__human-section__selection__scissors');
 
+const computerRock = document.querySelector('.app__computer-section__selection__rock');
+const computerPaper = document.querySelector('.app__computer-section__selection__paper');
+const computerScissors = document.querySelector('.app__computer-section__selection__scissors');
+
+const resultNumber = document.querySelector('.app__human-section__result__number');
+const computerResultNumber = document.querySelector('.app__computer-section__result__number');
+
+let playerScore = 0;
+let computerScore = 0;
+
 let computerPick;
 
 const randomComputerPick = () => {
@@ -19,37 +29,106 @@ const randomComputerPick = () => {
 
 let playerPick;
 
+let result = (outcome) => {
+
+  window.alert(outcome);
+
+  if (outcome === 'Win') {
+    playerScore++;
+  } else if (outcome === 'Draw') {
+    return;
+  } else if (outcome === 'Lose') {
+    computerScore++;
+  }
+
+  resultNumber.innerHTML = playerScore;
+  computerResultNumber.innerHTML = computerScore;
+
+}
+
+const reset = () => {
+  
+  rock.classList.remove('app__human-section__selection__rock--chosen');
+  paper.classList.remove('app__human-section__selection__paper--chosen');
+  scissors.classList.remove('app__human-section__selection__scissors--chosen');
+
+  computerRock.classList.remove('app__computer-section__selection__rock--chosen');
+  computerPaper.classList.remove('app__computer-section__selection__paper--chosen');
+  computerScissors.classList.remove('app__computer-section__selection__scissors--chosen');
+
+}
+
 rock.addEventListener('click', () => {
 
   playerPick = 0;
+  rock.classList.add('app__human-section__selection__rock--chosen');
+
   randomComputerPick();
 
-  let result;
+  let outcome;
 
   if (computerPick === 0) {
-    result = 'Draw';
+    computerRock.classList.add('app__computer-section__selection__rock--chosen');
+    outcome = 'Draw';
   } else if (computerPick === 1) {
-    result = 'Lose';
+    computerPaper.classList.add('app__computer-section__selection__paper--chosen');
+    outcome = 'Lose';
   } else if (computerPick === 2) {
-    result = 'Win';
+    computerScissors.classList.add('app__computer-section__selection__scissors--chosen');
+    outcome = 'Win';
   }
 
-  
+  result(outcome);
+  reset();
 
 });
 
 paper.addEventListener('click', () => {
 
   playerPick = 1;
+  paper.classList.add('app__human-section__selection__paper--chosen');
+
   randomComputerPick();
+
+  let outcome;
+
+  if (computerPick === 0) {
+    computerRock.classList.add('app__computer-section__selection__rock--chosen');
+    outcome = 'Win';
+  } else if (computerPick === 1) {
+    computerPaper.classList.add('app__computer-section__selection__paper--chosen');
+    outcome = 'Draw';
+  } else if (computerPick === 2) {
+    computerScissors.classList.add('app__computer-section__selection__scissors--chosen');
+    outcome = 'Lose';
+  }
+
+  result(outcome);
+  reset();
 
 });
 
 scissors.addEventListener('click', () => {
   
   playerPick = 2;
+  scissors.classList.add('app__human-section__selection__scissors--chosen');
+
   randomComputerPick();
 
+  let outcome;
+
+  if (computerPick === 0) {
+    computerRock.classList.add('app__computer-section__selection__rock--chosen');
+    outcome = 'Lose';
+  } else if (computerPick === 1) {
+    computerPaper.classList.add('app__computer-section__selection__paper--chosen');
+    outcome = 'Win';
+  } else if (computerPick === 2) {
+    computerScissors.classList.add('app__computer-section__selection__scissors--chosen');
+    outcome = 'Draw';
+  }
+
+  result(outcome);
+  reset();
+
 });
-
-
