@@ -34,7 +34,8 @@ body {
         height: 75px;
         display: flex;
         justify-content: center;
-        align-items: center; }
+        align-items: center;
+        border: 0; }
         .app__human-section__selection__rock:hover, .app__human-section__selection__paper:hover, .app__human-section__selection__scissors:hover, .app__computer-section__selection__rock:hover, .app__computer-section__selection__paper:hover, .app__computer-section__selection__scissors:hover {
           background-color: #d6ae16; }
         .app__human-section__selection__rock--chosen, .app__human-section__selection__paper--chosen, .app__human-section__selection__scissors--chosen, .app__computer-section__selection__rock--chosen, .app__computer-section__selection__paper--chosen, .app__computer-section__selection__scissors--chosen {

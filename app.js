@@ -29,9 +29,15 @@ const randomComputerPick = () => {
 
 let playerPick;
 
+const disabledButton = () => {
+  rock.disabled = true;
+  paper.disabled = true;
+  scissors.disabled = true;
+}
+
 let result = (outcome) => {
 
-  window.alert(outcome);
+  // window.alert(outcome);
 
   if (outcome === 'Win') {
     playerScore++;
@@ -56,9 +62,15 @@ const reset = () => {
   computerPaper.classList.remove('app__computer-section__selection__paper--chosen');
   computerScissors.classList.remove('app__computer-section__selection__scissors--chosen');
 
+  rock.disabled = false;
+  paper.disabled = false;
+  scissors.disabled = false;
+
 }
 
 rock.addEventListener('click', () => {
+
+  disabledButton();
 
   playerPick = 0;
   rock.classList.add('app__human-section__selection__rock--chosen');
@@ -79,11 +91,16 @@ rock.addEventListener('click', () => {
   }
 
   result(outcome);
-  reset();
+  
+  setTimeout(() => {
+    reset();
+  }, 1000);
 
 });
 
 paper.addEventListener('click', () => {
+
+  disabledButton();
 
   playerPick = 1;
   paper.classList.add('app__human-section__selection__paper--chosen');
@@ -104,11 +121,16 @@ paper.addEventListener('click', () => {
   }
 
   result(outcome);
-  reset();
+  
+  setTimeout(() => {
+    reset();
+  }, 1000);
 
 });
 
 scissors.addEventListener('click', () => {
+
+  disabledButton();
   
   playerPick = 2;
   scissors.classList.add('app__human-section__selection__scissors--chosen');
@@ -129,6 +151,9 @@ scissors.addEventListener('click', () => {
   }
 
   result(outcome);
-  reset();
+  
+  setTimeout(() => {
+    reset();
+  }, 1000);
 
 });
