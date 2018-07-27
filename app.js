@@ -1,19 +1,18 @@
-// 1. Global Vars
-// 2. Assign Rock Paper, and Scissors numbers
-// 3. Logic behind the numbers
-// 4. Compute score
+/*
+  Rock = 0
+  Paper = 1
+  Scissors = 2
+*/
 
-// Rock = 0
-// Paper = 1
-// Scissors = 2
+const humanSelection = document.querySelector('.app__human-section__selection');
 
-const rock = document.querySelector('.app__human-section__selection__rock');
-const paper = document.querySelector('.app__human-section__selection__paper');
-const scissors = document.querySelector('.app__human-section__selection__scissors');
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
 
-const computerRock = document.querySelector('.app__computer-section__selection__rock');
-const computerPaper = document.querySelector('.app__computer-section__selection__paper');
-const computerScissors = document.querySelector('.app__computer-section__selection__scissors');
+const computerRock = document.querySelector('#computer-rock');
+const computerPaper = document.querySelector('#computer-paper');
+const computerScissors = document.querySelector('#computer-scissors');
 
 const resultNumber = document.querySelector('.app__human-section__result__number');
 const computerResultNumber = document.querySelector('.app__computer-section__result__number');
@@ -21,13 +20,15 @@ const computerResultNumber = document.querySelector('.app__computer-section__res
 let playerScore = 0;
 let computerScore = 0;
 
-let computerPick;
+const classArray = [computerRock, computerPaper, computerScissors];
 
 const randomComputerPick = () => {
-  computerPick = Math.floor(Math.random() * (2 - 0 + 1) + 0);
-}
+  computerPick = Math.floor(Math.random() * 3 );
 
-let playerPick;
+  let addClass = classArray[computerPick];
+  addClass.classList.add('app__computer-section__selection__computer-option--chosen');
+
+}
 
 const disabledButton = () => {
   rock.disabled = true;
@@ -35,16 +36,34 @@ const disabledButton = () => {
   scissors.disabled = true;
 }
 
-let result = (outcome) => {
+let result = (pick, computerPick) => {
 
-  // window.alert(outcome);
+  /*
+    Set 'workOutLoser' to be the player's pick + 1. 
+    If player pick is equal to computer pick, return (draw).
+    Player is always beaten by one above (unless chosing scissors, then is beaten by 0, hence the else if block) e.g:
 
-  if (outcome === 'Win') {
-    playerScore++;
-  } else if (outcome === 'Draw') {
+    0:Rock beaten by 1:Paper
+    1:Paper beaten by 2:Scissors
+
+    else if block example:
+    2:Scissors beaten by 0:Rock
+
+    By that, so long as the computer pick doesn't = 'workOutLoser', player wins.
+  */
+
+  let workOutLoser = pick + 1;
+
+  if (pick === computerPick) {
     return;
-  } else if (outcome === 'Lose') {
+  } else if (workOutLoser > 2) {
+    workOutLoser = 0;
+  }
+
+  if (computerPick == workOutLoser) {
     computerScore++;
+  } else if (computerPick != workOutLoser) {
+    playerScore++;
   }
 
   resultNumber.innerHTML = playerScore;
@@ -54,13 +73,16 @@ let result = (outcome) => {
 
 const reset = () => {
   
-  rock.classList.remove('app__human-section__selection__rock--chosen');
-  paper.classList.remove('app__human-section__selection__paper--chosen');
-  scissors.classList.remove('app__human-section__selection__scissors--chosen');
+  const elementsToReset = document.querySelectorAll('.app__human-section__selection__option--chosen');
+  const elementsToResetComp = document.querySelectorAll('.app__computer-section__selection__computer-option--chosen');
 
-  computerRock.classList.remove('app__computer-section__selection__rock--chosen');
-  computerPaper.classList.remove('app__computer-section__selection__paper--chosen');
-  computerScissors.classList.remove('app__computer-section__selection__scissors--chosen');
+  elementsToReset.forEach(element => {
+    element.classList.remove('app__human-section__selection__option--chosen');
+  });
+
+  elementsToResetComp.forEach(element => {
+    element.classList.remove('app__computer-section__selection__computer-option--chosen');
+  });
 
   rock.disabled = false;
   paper.disabled = false;
@@ -68,92 +90,23 @@ const reset = () => {
 
 }
 
-rock.addEventListener('click', () => {
+humanSelection.addEventListener('click', ({target}) => {
 
-  disabledButton();
+  if (target && target.matches('button')) {
 
-  playerPick = 0;
-  rock.classList.add('app__human-section__selection__rock--chosen');
+    disabledButton();
 
-  randomComputerPick();
+    target.classList.add('app__human-section__selection__option--chosen');
+    let pick = parseInt(target.getAttribute('data-pick'));
 
-  let outcome;
+    randomComputerPick();
 
-  if (computerPick === 0) {
-    computerRock.classList.add('app__computer-section__selection__rock--chosen');
-    outcome = 'Draw';
-  } else if (computerPick === 1) {
-    computerPaper.classList.add('app__computer-section__selection__paper--chosen');
-    outcome = 'Lose';
-  } else if (computerPick === 2) {
-    computerScissors.classList.add('app__computer-section__selection__scissors--chosen');
-    outcome = 'Win';
+    result(pick, computerPick);
+
+      setTimeout(() => {
+        reset();
+      }, 1000);
+
   }
-
-  result(outcome);
-  
-  setTimeout(() => {
-    reset();
-  }, 1000);
-
-});
-
-paper.addEventListener('click', () => {
-
-  disabledButton();
-
-  playerPick = 1;
-  paper.classList.add('app__human-section__selection__paper--chosen');
-
-  randomComputerPick();
-
-  let outcome;
-
-  if (computerPick === 0) {
-    computerRock.classList.add('app__computer-section__selection__rock--chosen');
-    outcome = 'Win';
-  } else if (computerPick === 1) {
-    computerPaper.classList.add('app__computer-section__selection__paper--chosen');
-    outcome = 'Draw';
-  } else if (computerPick === 2) {
-    computerScissors.classList.add('app__computer-section__selection__scissors--chosen');
-    outcome = 'Lose';
-  }
-
-  result(outcome);
-  
-  setTimeout(() => {
-    reset();
-  }, 1000);
-
-});
-
-scissors.addEventListener('click', () => {
-
-  disabledButton();
-  
-  playerPick = 2;
-  scissors.classList.add('app__human-section__selection__scissors--chosen');
-
-  randomComputerPick();
-
-  let outcome;
-
-  if (computerPick === 0) {
-    computerRock.classList.add('app__computer-section__selection__rock--chosen');
-    outcome = 'Lose';
-  } else if (computerPick === 1) {
-    computerPaper.classList.add('app__computer-section__selection__paper--chosen');
-    outcome = 'Win';
-  } else if (computerPick === 2) {
-    computerScissors.classList.add('app__computer-section__selection__scissors--chosen');
-    outcome = 'Draw';
-  }
-
-  result(outcome);
-  
-  setTimeout(() => {
-    reset();
-  }, 1000);
 
 });
